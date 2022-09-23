@@ -29,9 +29,13 @@
 #include "conversions.hpp"
 #include "gtpu.h"
 #include "gtpv1u.hpp"
-
+#include <cstdint>
 #include <cstdlib>
 #include <sched.h>
+#include "linux/ip.h"
+// #include "pfcp_switch.hpp"
+// #include "spgwu_config.hpp"
+// #include "spgwu_s1u.hpp"
 
 using namespace gtpv1u;
 using namespace std;
@@ -206,6 +210,7 @@ void gtpu_l4_stack::send_g_pdu(
 
     gtpu_ext_hdr->message_length = 0x01;
     gtpu_ext_hdr->pdu_type       = GTPU_DL_PDU_SESSION_INFORMATION;
+    Logger::spgwu_app().info("downlink ip value is %u mapped to QFI\n", (((struct iphdr*)payload)->daddr));
     gtpu_ext_hdr->qfi            = qfi;  // Taken from uplink PDR
     gtpu_ext_hdr->next_ext_type  = GTPU_NO_MORE_EXTENSION_HEADER;
 

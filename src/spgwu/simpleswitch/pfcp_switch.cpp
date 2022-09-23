@@ -940,6 +940,7 @@ void pfcp_switch::handle_pfcp_session_deletion_request(
 void pfcp_switch::pfcp_session_look_up_pack_in_access(
     struct iphdr* const iph, const std::size_t num_bytes,
     const endpoint& r_endpoint, const uint32_t tunnel_id) {
+        Logger::pfcp_switch().info( "pfcp_session_look_up_pack_in_access %d bytes",num_bytes);
   if (!spgwu_cfg.nsf.bypass_ul_pfcp_rules) {
     std::shared_ptr<std::vector<std::shared_ptr<pfcp::pfcp_pdr>>> pdrs = {};
     if (get_pfcp_ul_pdrs_by_up_teid(tunnel_id, pdrs)) {
@@ -1006,8 +1007,7 @@ void pfcp_switch::pfcp_session_look_up_pack_in_access(
 //------------------------------------------------------------------------------
 void pfcp_switch::pfcp_session_look_up_pack_in_core(
     const char* buffer, const std::size_t num_bytes) {
-  // Logger::pfcp_switch().info( "pfcp_session_look_up_pack_in_core %d bytes",
-  // num_bytes);
+  Logger::pfcp_switch().info( "pfcp_session_look_up_pack_in_core %d bytes",num_bytes);
   struct iphdr* iph = (struct iphdr*) buffer;
   std::shared_ptr<std::vector<std::shared_ptr<pfcp::pfcp_pdr>>> pdrs;
   if (iph->version == 4) {

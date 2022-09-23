@@ -23,7 +23,7 @@
 #include "pid_file.hpp"
 #include "spgwu_app.hpp"
 #include "spgwu_config.hpp"
-
+#include "stdio.h"
 #include <boost/asio.hpp>
 #include <iostream>
 #include <algorithm>
@@ -103,6 +103,11 @@ int my_check_redundant_process(char* exec_name) {
 //------------------------------------------------------------------------------
 int main(int argc, char** argv) {
   // Checking if another instance of SPGW-U is running
+  printf("hello container!");
+    printf("hello container!");
+      printf("hello container!");
+        printf("hello container!");
+          printf("hello container!");
   int nb_processes = my_check_redundant_process(argv[0]);
   if (nb_processes > 1) {
     std::cout << "An instance of " << argv[0] << " is maybe already called!"
@@ -121,7 +126,7 @@ int main(int argc, char** argv) {
   Logger::init("spgwu", Options::getlogStdout(), Options::getlogRotFilelog());
 
   Logger::spgwu_app().startup("Options parsed");
-
+Logger::spgwu_app().info("Hello Container");
   struct sigaction sigIntHandler;
   sigIntHandler.sa_handler = my_app_signal_handler;
   sigemptyset(&sigIntHandler.sa_mask);
